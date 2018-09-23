@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+
+
+ <html class="no-js"> 
+<head>
+    <title>Koping with KDB 001: List Reversal  &middot; Coding without Coffee </title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="content-language" content="en-us" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Ali Faizan Kazmi">
+    <meta name="description" content="A chronicle of my forays into several programming languages">
+    <meta name="generator" content="Hugo 0.48" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://codingwithoutcoffee.com/css/smooth-scrollbar.css" />
+    <link rel="stylesheet" type="text/css" href="https://codingwithoutcoffee.com/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/tomorrow.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+    
+
+    <style>
+        .posts li {
+            visibility: hidden;
+        }
+    </style> 
+</head>
+<body>
+    
+    
+
+    <header>	
+	<div class="h-wrap">
+		
+		<h1 class="title"><a href="https://codingwithoutcoffee.com/">Coding without Coffee</a></h1>
+		
+	</div>
+</header>
+    
+    <div class="site-wrapper" id="full-wrapper">
+        
+        <section class="single-wrap">
+            <article class="single-content" itemscope itemtype="//schema.org/BlogPosting">
+                <div class="feat">
+                    <h5 class="page-date">
+                    <time datetime="" itemprop="datePublished">
+                    22 September 2018
+                   
+                    </time>
+                    </h5>
+                </div>
+                <h1 class="page-title" itemprop="name headline">Koping with KDB 001: List Reversal</h1>
+                <div itemprop="articleBody">
+                    
+
+<p>One of the first rules I learned when studying kdb+ was that the Q/kdb+ interpreter evaluates expressions from right to left, even though expressions are typed left-to-right. For instance, the result of the following expression:</p>
+
+<pre><code>1*2+3
+</code></pre>
+
+<p>is <code>5</code>, since the addition operator and its operands are evaluated first and the result of the addition in turn becomes the second operand for the * operator.</p>
+
+<p>Sound simple enough? I certainly thought so, until my forehead landed on my palm a few minutes later.</p>
+
+<h2 id="recursion">Recursion?</h2>
+
+<p>I was attempting to define a simple function that would return true if it were passed a list as its argument:</p>
+
+<pre><code>isList: {[object] type object = 7h}
+</code></pre>
+
+<p>A breakdown of the above follows for the uninitiated:</p>
+
+<ul>
+<li>: is the assignment operator</li>
+<li>A function definition is encapsulated in curly brackets</li>
+<li>A function&rsquo;s parameters are encapsulated in square brackets inside the function definition</li>
+<li>= is the equality operator (since : takes care of assignment)</li>
+<li>Each datatype in kdb is represented by a special 16-bit integer. In this case, we want the integer that represents the list datatype - 7h (well, <a href="http://code.kx.com/q/ref/datatypes/">not exactly</a>).</li>
+</ul>
+
+<p>Back to our function definition. If, like me, you didn&rsquo;t immediately notice what was wrong then here it is: the expression</p>
+
+<pre><code>type object = 7h
+</code></pre>
+
+<p>is evaluated right-to-left, which means the expression is not performing the intended type check at all! From right to left, this expression contains two inner expressions evaluated in the following order:</p>
+
+<pre><code>object = 7h
+type
+</code></pre>
+
+<p>So, <code>object = 7h</code> evaluates to a boolean value (<code>0b</code> or <code>1b</code>) which is then served as the argument to the type function. No wonder, then, that we get the following result when we invoke our function with a list of numbers:</p>
+
+<pre><code>isList 1 2 3
+-1h
+</code></pre>
+
+<p><code>-1h</code> is the numerical representation of the boolean datatype.</p>
+
+<p>Here is the corrected version of the function:</p>
+
+<pre><code>isList: {[object] 7h = type object}
+</code></pre>
+
+<p>Which gives us the expected result when invoked with a list of numbers:</p>
+
+<pre><code>isList [1 2 3]
+1b
+</code></pre>
+
+<p>Why do I want such a function, you ask? Because I would like to ultimately define a function that takes a list as an argument and returns another list with its elements in the reverse order. Since kdb has no loops, one way we could achieve a list reversal is via recursion and for recursion to work (or, more precisely, to stop!) we need a base case. In this example, the base case would be the point where we have reduced the provided list to its last element.</p>
+
+<h2 id="really-recursion">Really? Recursion?</h2>
+
+<p>Wait, do we really need recursion? Given that Q is an array programming language (among other things), could we not just pass a list of indices as an argument to our list in order to obtain a new reversed list? Of course, we&rsquo;ll need to make sure the list of indices is in reverse, too. But that shouldn&rsquo;t be difficult. We can make use of the <code>til</code> function:</p>
+
+<pre><code>til 3
+0 1 2
+</code></pre>
+
+<p>The function can be used to obtain a list of valid indices by using the <code>count</code> function:</p>
+
+<pre><code>list: 1 2 3
+til count list
+0 1 2
+</code></pre>
+
+<p>Now, if we can reverse the list of indices then our problem should be solved:</p>
+
+<pre><code>list 2 1 0
+3 2 1
+</code></pre>
+
+<p>The following is one strategy to reverse this list:</p>
+
+<ul>
+<li>The maximum valid index is <code>-1 + count list</code> (Am I the only one who came up with <code>count list - 1</code> first?)</li>
+<li>Subtracting a list of indices that is sorted in ascending order from the maximum valid index will yield a list that contains the same indices in reverse</li>
+</ul>
+
+<p>In our case:</p>
+
+<pre><code>indices: til count list
+2 - indices
+2 1 0
+</code></pre>
+
+<p>Great, now we need to wrap up all of this into a function. We can&rsquo;t name our function <code>reverse</code> since that name is already reserved (for a function the definition of which I&rsquo;m too scared to find out just yet).</p>
+
+<pre><code>reverseList: {
+    [list] list (-1 + count list) - til count list
+}
+</code></pre>
+
+<p>This seems to work correctly:</p>
+
+<pre><code>reverseList 1 2 3
+3 2 1
+
+reverseList &quot;level&quot;
+&quot;level&quot;
+reverseList 1 0 1
+1 0 1
+reverseList &quot;Eva, can I stab bats in a cave?&quot;
+&quot;?evac a ni stab bats I nac ,avE&quot;
+</code></pre>
+
+<p>Apologies, I got carried away with palindromes.</p>
+
+<pre><code>reverseList 110b
+011b
+reverseList `a`b`c
+`c`b`a
+reverseList 2018.09.23 2018.09.22 2018.09.21
+2018.09.21 2018.09.22 2018.09.23
+</code></pre>
+
+<h2 id="is-this-good-enough">Is this good enough?</h2>
+
+<p>Hardly. Why should we have to create a new list (i.e., the list of indices in reverse) in order to reverse a given list? Also, I don&rsquo;t like having to use parantheses to force the evaluation of an expression first - a sign that I&rsquo;m still wet behind the ears vis-à-vis Q&rsquo;s right-to-left evaluation. Perhaps I should take a stab at recursion after all, or find a better solution as I continue to study Q and slowly shed the yoke imperative/non-array programming paradigms.</p>
+                    
+                </div>
+                <div class="feat share">
+                </div>
+                
+                
+                
+            </article>
+        </section>
+
+        <footer>
+	
+	<small>© Ali Faizan Kazmi</small>
+	
+</footer>
+    </div>
+
+    <div class="next-prev-arrows">
+        
+        
+    </div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://codingwithoutcoffee.com/js/scrollreveal.min.js"></script>
+<script type='application/javascript' src='https://codingwithoutcoffee.com/js/smooth-scrollbar.js'></script>
+<script src="https://codingwithoutcoffee.com/js/baffle.min.js"></script>
+<script src="https://codingwithoutcoffee.com/js/main.js"></script>
+
+
+
+
+
+<!-- Syntax highlighting -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
