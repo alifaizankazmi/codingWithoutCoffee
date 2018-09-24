@@ -1,0 +1,3 @@
+[submodule "themes/sublime-hugo-theme"]
+	path = themes/sublime-hugo-theme
+	url = http://github.com/dt801ts/sublime-hugo-theme
