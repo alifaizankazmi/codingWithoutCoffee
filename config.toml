@@ -1,21 +1,21 @@
-baseurl = "https://example.com/"
+baseurl = "https://codingwithoutcoffee.netlify.com/"
 # remember trailing / at end of baseurl
 languageCode = "en-us"
-title = "Sublime Hugo"
+title = "Coding without Coffee"
 # Enable comments by entering your Disqus shortname
 # disqusShortname = ""
 # Enable Google Analytics by entering your tracking code
 # googleAnalytics = ""
 paginate = 50
-theme = "sublime-hugo-theme"
+theme = "sublime-hugo"
 
 [permalinks]
 	post = "/:year/:month/:day/:slug"
 
 [params]
-	name = "Your NAme"
-	description = ""
-	copyright = ""
+	name = "Ali Faizan Kazmi"
+	description = "A chronicle of my forays into several programming languages"
+	copyright = "© Ali Faizan Kazmi"
 
 	# Custom assets can be linked with their paths relative to static/
 	custom_css = []
@@ -30,9 +30,9 @@ theme = "sublime-hugo-theme"
 
 [params.offcanvas]
 	# Menu items
-	title = "Sublime Hugo"
-	bio = "123 Main St"
-	bio2 = "Big City, CA 90012"
+	title = "Ali Faizan Kazmi"
+	bio = "Glasgow"
+	bio2 = "United Kingdom"
 	subscribe = "Subscribe"
 	followme = "Contact"
 
@@ -41,5 +41,5 @@ theme = "sublime-hugo-theme"
 	search = "Search"
 
 	[[params.offcanvas.socialnetworks]]
-		name = "youremail@protonmail.ch"
-		url = "mailto:youremail@protonmail.ch"
+		name = "alifaizankazmi@gmail.com"
+		url = "mailto:alifaizankazmi@gmail.com"
