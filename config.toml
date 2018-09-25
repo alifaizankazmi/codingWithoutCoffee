@@ -7,7 +7,7 @@ title = "Coding without Coffee"
 # Enable Google Analytics by entering your tracking code
 # googleAnalytics = ""
 paginate = 50
-theme = "sublime-hugo-theme"
+theme = "sublime-hugo-theme-clone"
 
 [permalinks]
 	post = "/:year/:month/:day/:slug"
