@@ -14,9 +14,9 @@ type = "post"
 
 One of the first rules I learned when studying kdb+ was that the Q/kdb+ interpreter evaluates expressions from right to left, even though expressions are typed left-to-right. For instance, the result of the following expression:
 
-    1*2+3
+    2*3+3
 
-is `5`, since the addition operator and its operands are evaluated first and the result of the addition in turn becomes the second operand for the * operator.
+is `12`, since the addition operator and its operands are evaluated first and the result of the addition in turn becomes the second operand for the * operator.
 
 Sound simple enough? I certainly thought so, until my forehead landed on my palm a few minutes later. 
 
