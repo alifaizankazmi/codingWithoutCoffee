@@ -43,7 +43,7 @@ is evaluated right-to-left, which means the expression is not performing the int
     object = 7h
     type
 
-So, `object = 7h` evaluates to a boolean value (`0b` or `1b`) which is then served as the argument to the type function. No wonder, then, that we get the following result when we invoke our function with a list of numbers:
+So, `object = 7h` evaluates to a boolean value (`0b` or `1b`) which is then served as the argument to the `type` function. No wonder, then, that we get the following result when we invoke our function with a list of numbers:
 
     isList 1 2 3
     -1h
@@ -59,22 +59,22 @@ Which gives us the expected result when invoked with a list of numbers:
     isList [1 2 3]
     1b
 
-Why do I want such a function, you ask? Because I would like to ultimately define a function that takes a list as an argument and returns another list with its elements in the reverse order. Since kdb has no loops, one way we could achieve a list reversal is via recursion and for recursion to work (or, more precisely, to stop!) we need a base case. In this example, the base case would be the point where we have reduced the provided list to its last element. 
+Why do I want such a function, you ask? Because I would like to ultimately define a function that takes a list as an argument and returns another list with its elements in the reverse order. One way we could achieve a list reversal is via recursion and for recursion to work (or, more precisely, to stop!) we need a base case. In this example, the base case would be the point where we have reduced the provided list to its last element. 
 
 ## Really? Recursion?
 
-Wait, do we really need recursion? Given that Q is an array programming language (among other things), could we not just pass a list of indices as an argument to our list in order to obtain a new reversed list? Of course, we'll need to make sure the list of indices is in reverse, too. But that shouldn't be difficult. We can make use of the `til` function:
+Wait, do we really need recursion? Given that Q is an array programming language (among other things), could we not just pass a list of indices as an argument to our list in order to obtain a new reversed list? Of course, we'll need to make sure the list of indices is in reverse, too. But that shouldn't be difficult. To generate a list of indices, we can make use of the `til` function:
 
     til 3
     0 1 2
 
-The function can be used to obtain a list of valid indices by using the `count` function:
+The function can be used to obtain a list of valid indices for a list by using the `count` function:
 
     list: 1 2 3
     til count list
     0 1 2
 
-Now, if we can reverse the list of indices then our problem should be solved:
+Now, if we could reverse the list of indices then our problem should be solved:
 
     list 2 1 0
     3 2 1
@@ -90,7 +90,7 @@ In our case:
     2 - indices
     2 1 0
 
-Great, now we need to wrap up all of this into a function. We can't name our function `reverse` since that name is already reserved (for a function the definition of which I'm too scared to find out just yet).
+Great, now we need to wrap all of this into a function. We can't name our function `reverse` since that name is already reserved (for a function the definition of which I'm too scared to find out just yet). Here's the function:
 
     reverseList: {
         [list] list (-1 + count list) - til count list
@@ -119,6 +119,6 @@ Apologies, I got carried away with palindromes.
 
 ## Is this good enough?
 
-Hardly. Why should we have to create a new list (i.e., the list of indices in reverse) in order to reverse a given list? Also, I don't like having to use parantheses to force the evaluation of an expression first - a sign that I'm still wet behind the ears vis-à-vis Q's right-to-left evaluation. Perhaps I should take a stab at recursion after all, or find a better solution as I continue to study Q and slowly shed the yoke imperative/non-array programming paradigms.
+Hardly. Why should we have to create a new list (i.e., the list of indices in reverse) in order to reverse a given list? Also, I don't like having to use parantheses to force the evaluation of an expression first - a sign that I'm still wet behind the ears vis-à-vis Q's right-to-left evaluation. Perhaps I should take a stab at recursion after all, or find a better solution as I continue to study Q and slowly shed the yoke of imperative/non-array programming paradigms.
 
 [code-kx-datatypes]: http://code.kx.com/q/ref/datatypes/
