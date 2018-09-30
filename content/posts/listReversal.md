@@ -46,7 +46,7 @@ is evaluated right-to-left, which means the expression is not performing the int
 So, `object = 7h` evaluates to a boolean value (`0b` or `1b`) which is then served as the argument to the `type` function. No wonder, then, that we get the following result when we invoke our function with a list of numbers:
 
     isList 1 2 3
-    -1h
+    -> -1h
 
 `-1h` is the numerical representation of the boolean datatype.
 
@@ -57,7 +57,7 @@ Here is the corrected version of the function:
 Which gives us the expected result when invoked with a list of numbers:
 
     isList [1 2 3]
-    1b
+    -> 1b
 
 Why do I want such a function, you ask? Because I would like to ultimately define a function that takes a list as an argument and returns another list with its elements in the reverse order. One way we could achieve a list reversal is via recursion and for recursion to work (or, more precisely, to stop!) we need a base case. In this example, the base case would be the point where we have reduced the provided list to its last element. 
 
@@ -66,18 +66,18 @@ Why do I want such a function, you ask? Because I would like to ultimately defin
 Wait, do we really need recursion? Given that Q is an array programming language (among other things), could we not just pass a list of indices as an argument to our list in order to obtain a new reversed list? Of course, we'll need to make sure the list of indices is in reverse, too. But that shouldn't be difficult. To generate a list of indices, we can make use of the `til` function:
 
     til 3
-    0 1 2
+    -> 0 1 2
 
 The function can be used to obtain a list of valid indices for a list by using the `count` function:
 
     list: 1 2 3
     til count list
-    0 1 2
+    -> 0 1 2
 
 Now, if we could reverse the list of indices then our problem should be solved:
 
     list 2 1 0
-    3 2 1
+    -> 3 2 1
 
 The following is one strategy to reverse this list:
 
@@ -88,7 +88,7 @@ In our case:
 
     indices: til count list
     2 - indices
-    2 1 0
+    -> 2 1 0
 
 Great, now we need to wrap all of this into a function. We can't name our function `reverse` since that name is already reserved (for a function the definition of which I'm too scared to find out just yet). Here's the function:
 
@@ -99,23 +99,23 @@ Great, now we need to wrap all of this into a function. We can't name our functi
 This seems to work correctly:
 
     reverseList 1 2 3
-    3 2 1
+    -> 3 2 1
 
     reverseList "level"
-    "level"
+    -> "level"
     reverseList 1 0 1
-    1 0 1
+    -> 1 0 1
     reverseList "Eva, can I stab bats in a cave?"
-    "?evac a ni stab bats I nac ,avE"
+    -> "?evac a ni stab bats I nac ,avE"
 
 Apologies, I got carried away with palindromes.
 
     reverseList 110b
-    011b
+    -> 011b
     reverseList `a`b`c
-    `c`b`a
+    -> `c`b`a
     reverseList 2018.09.23 2018.09.22 2018.09.21
-    2018.09.21 2018.09.22 2018.09.23
+    -> 2018.09.21 2018.09.22 2018.09.23
 
 ## Is this good enough?
 
