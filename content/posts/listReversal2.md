@@ -12,6 +12,8 @@ slug = "listreversal2"
 type = "post"
 +++
 
+##### Estimated reading time: 10 minutes
+
 In the previous [post][list-reversal-first-post] we stopped short of applying recursion to reverse a list since we found a quirkier way to do it. Let's see if the use of recursion results in simpler code.
 
 ## Give me your `ifs`, your `elses`...

@@ -12,6 +12,8 @@ slug = "listreversal"
 type = "post"
 +++
 
+##### Estimated reading time: 5 minutes
+
 One of the first rules I learned when studying kdb+ was that the Q/kdb+ interpreter evaluates expressions from right to left, even though expressions are typed left-to-right. For instance, the result of the following expression:
 
     2*3+3
