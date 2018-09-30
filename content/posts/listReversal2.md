@@ -68,7 +68,7 @@ Looks like it works!
     recur 1
     -> "Done"
 
-Can we be sure that recursion is taking place, though? Since I'm not aware of the equivalent of `println` in Q, one way to make sure that recursion is in fact happening is to pass a number greater than 6 to the function. In languages like Java, this should generate a stack overflow since the recursive function would keep on calling itself until there was no more space on the stack. That's exactly what happens here, too:
+Can we be sure that recursion is taking place, though? Since I'm not aware of the equivalent of `println` in Q, one way to make sure that recursion is in fact happening is to pass a number greater than 6 to the function. In languages like Java this should generate a stack overflow since the recursive function would keep on calling itself until there was no more space on the stack. That's exactly what happens here, too:
 
     recur 7
     -> `stack
@@ -131,7 +131,7 @@ Therein lies the fault: it would've been more obvious if I had formulated a prop
         (where h denotes the head - e.g., h(1 2 3) is 1)
     The reverse of a list with one element is the list itself
 
-In short, the last expression we passed to the `$` operator is wrong. We should instead use the `take` (`#`) operator:
+In short, the last expression we passed to the `$` operator is wrong. We should've used the `take` (`#`) operator:
 
     list: 1 2 3
     1#list
@@ -246,7 +246,7 @@ To sum up, here's our solution:
         ]
     }
 
-Not as succinct as our [previous solution][list-reversal-first-post], but at least we're not creating an additional list to help us with list reversal. It's also ugly to make the same check (`1 = count list`) in two places for different purposes, but I'll call it a day at this point.
+It's ugly to make the same check (`1 = count list`) in two places for different purposes, but I'll call it a day at this point.
 
 [list-reversal-first-post]: https://codingwithoutcoffee.netlify.com/posts/listreversal/
 [tail-recursion]: https://en.wikipedia.org/wiki/Tail_call
