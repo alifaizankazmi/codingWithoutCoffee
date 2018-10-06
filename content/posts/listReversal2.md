@@ -28,7 +28,13 @@ Available to us is the `if` statement:
     message
     -> "I don't think this is useful to us"
 
-The if statement evaluates a given condition (`n=1`) and if the condition evaluates to a value greater than 0 (which represents the boolean `false`) then any statements following the condition are executed in order from left to right. In our case, we are assiging the string `"I don't think this is useful to us"` to the variable `message`. As an aside, notice that the concept of scope doesn't apply here: the variable `message` is defined inside the `if` statement but continues to be accessible outside of it!
+The if statement evaluates a given condition (`n=1`) and if the condition evaluates to a value greater than 0 (which represents the boolean `false`) then any statements following the condition are executed in order from left to right. In our case, we are assiging the string `"I don't think this is useful to us"` to the variable `message`. 
+
+---
+
+As an aside, notice that the concept of scope doesn't apply here: the variable `message` is defined inside the `if` statement but continues to be accessible outside of it!
+
+---
 
 Yes, this doesn't fit our use case: if we are to use recursion, we also need an `else` clause - something like the following:
 

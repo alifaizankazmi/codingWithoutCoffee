@@ -34,7 +34,8 @@ A breakdown of the above follows for the uninitiated:
 * A function definition is encapsulated in curly brackets
 * A function's parameters are encapsulated in square brackets inside the function definition
 * = is the equality operator (since : takes care of assignment)
-* Each datatype in kdb is represented by a special 16-bit integer. In this case, we want the integer that represents the list datatype - 7h (well, [not exactly] [code-kx-datatypes]).
+* Each datatype in kdb is represented by a special 16-bit integer. In this case, we want the integer that represents the list datatype - 7h (well, [not exactly] [code-kx-datatypes])
+* Generally, a non-niladic function in kdb is invoked by passing it one or more arguments within square brackets. This is optional for monadic functions, though - as seen above in case of the `type` function
 
 Back to our function definition. If, like me, you didn't immediately notice what was wrong then here it is: the expression
 
@@ -42,15 +43,20 @@ Back to our function definition. If, like me, you didn't immediately notice what
 
 is evaluated right-to-left, which means the expression is not performing the intended type check at all! From right to left, this expression contains two inner expressions evaluated in the following order:
 
-    object = 7h
-    type
+    type (object = 7h)
 
 So, `object = 7h` evaluates to a boolean value (`0b` or `1b`) which is then served as the argument to the `type` function. No wonder, then, that we get the following result when we invoke our function with a list of numbers:
 
     isList 1 2 3
     -> -1h
 
-`-1h` is the numerical representation of the boolean datatype.
+`-1h` is the numerical representation of the boolean datatype. 
+
+---
+
+As an aside, lists in kdb are typically enclosed in round brackets and a semi-colon is used to separate list items. However, round brackets and semi-colons can be dropped for a list of *atoms* (known as primitives in languages like Java) where each atom is of the same datatype.
+
+---
 
 Here is the corrected version of the function:
 
@@ -58,7 +64,7 @@ Here is the corrected version of the function:
 
 Which gives us the expected result when invoked with a list of numbers:
 
-    isList [1 2 3]
+    isList 1 2 3
     -> 1b
 
 Why do I want such a function, you ask? Because I would like to ultimately define a function that takes a list as an argument and returns another list with its elements in the reverse order. One way we could achieve a list reversal is via recursion and for recursion to work (or, more precisely, to stop!) we need a base case. In this example, the base case would be the point where we have reduced the provided list to its last element. 
