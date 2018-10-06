@@ -12,6 +12,8 @@ slug = "fibonacci"
 type = "post"
 +++
 
+##### Estimated reading time: 7 minutes
+
 The title says it all. Let's see if we can come up with a function to generate a portion of the Fibonacci sequence. 
 
 ## [Insert repetitive heading here]
