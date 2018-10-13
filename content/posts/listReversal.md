@@ -118,10 +118,8 @@ This seems to work correctly:
 
 Apologies, I got carried away with palindromes.
 
-    reverseList 110b
+    reverseList 110b /List of booleans (incidentally, this is a comment)
     -> 011b
-    reverseList `a`b`c
-    -> `c`b`a
     reverseList 2018.09.23 2018.09.22 2018.09.21
     -> 2018.09.21 2018.09.22 2018.09.23
 
