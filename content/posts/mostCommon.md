@@ -2,7 +2,7 @@
 title = "Koping with KDB 004: Most Common Item"
 description = "most common item"
 tags = [ "kdb", "q", "item", "common", "list" ]
-date = "2018-10-10"
+date = "2018-10-13"
 location = "Glasgow, UK"
 categories = [
   "q",
