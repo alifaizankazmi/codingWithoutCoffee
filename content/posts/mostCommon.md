@@ -68,7 +68,7 @@ dictionary
 
 ## Loop me no loopings
 
-We will need to iterate through all the items in a list for our solution to work. Thus far, we've achieved this using recursion. We also looked at the `over` (`/`) adverb in the [previous post][fibonacci]. So, which route do we take? Hint: we don't have to take either. Turns out, simply passing a list to a monadic function results in that function being invoked on each item of the list:
+We will need to iterate through all the items in a list for our solution to work. Thus far, we've achieved this using recursion. We also looked at the `over` (`/`) adverb in the [previous post][fibonacci-post]. So, which route do we take? Hint: we don't have to take either. Turns out, simply passing a list to a monadic function results in that function being invoked on each item of the list:
 
 ```
 words:`one`two`three`three
@@ -254,6 +254,4 @@ The operator is preceded with the required size of the list and succeeded with a
 
 Seems fairly conclusive: the `getModeWithGroup` function takes roughly 1/6th of the time taken by the `getMode` function and consumes almost half the space.
 
-[fibonacci]: [https://codingwithoutcoffee.netlify.com/posts/fibonacci/]
-[ascii-caterpillar]: [https://www.asciiart.eu/animals/insects/caterpillars]
-[code-kx-generic-null]: [https://code.kx.com/wiki/Reference/ColonColon#::_.28generic_null.2Fglobal_amend.2Fcreate_view.2Fidentity_function.29]
+[fibonacci-post]: https://codingwithoutcoffee.netlify.com/posts/fibonacci/
