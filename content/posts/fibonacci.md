@@ -70,7 +70,7 @@ Looks like it works. Is that really it? We haven't really learned anything new!
 
 ## Meet our new friend: the loopy slash
 
-Yes, that's not what it's officially called. The `/` is technically an *adverb*: adverbs are supposedly higher-order functions that can modify the behaviour of a given function, somewhat similar to how adverbs in the English language modify the meaning of adjectives or verbs. More on adverbs will follow in later posts. For now, the book *Q for Mortals* has a [nice example][q-for-mortals-fibonacci-example] that generates the Fibonacci sequence for us:
+Yes, that's not what it's officially called. The `/` is technically an **adverb**: adverbs are supposedly higher-order functions that can modify the behaviour of a given function, somewhat similar to how adverbs in the English language modify the meaning of adjectives or verbs. More on adverbs will follow in later posts. For now, the book **Q for Mortals** has a [nice example][q-for-mortals-fibonacci-example] that generates the Fibonacci sequence for us:
 
     10 {x,sum -2#x}/ 1 1
     -> 1 1 2 3 5 8 13 21 34 55 89 144
@@ -81,7 +81,7 @@ From the looks of it, the loopy slash is a triadic adverb. It requires (in order
 2. A function `f`, encapsulated in curly brackets
 3. A variable upon which `f` is meant to be executed `n` times - in this case the list (1;1)
 
-What is `x`, you say? It's an *implicit* parameter. If you define a function in Q without specifying any parameters, you are allowed to reference `x`, `y`, and `z` as the first, second, and third implicit parameters in the function body:
+What is `x`, you say? It's an **implicit** parameter. If you define a function in Q without specifying any parameters, you are allowed to reference `x`, `y`, and `z` as the first, second, and third implicit parameters in the function body:
 
     {x+y+z} [1;2;3]
     -> 6
@@ -90,7 +90,7 @@ Not really my cup of tea: I like to know what a function parameter represents by
 
 ## Some scrubbing required
 
-Something's off about both solutions: no, I'm not referring to the fact that my solution considers 0 to be the first number in the Fibonacci sequence whereas the solution from *Q for Mortals* doesn't. What's off to me is this: I like to see the act of function invocation as a conversation between the programmer and the program. As such, both solutions aren't well-suited to answering the question: "What are the first `n` numbers of the Fibonacci sequence?" What I'm looking for is this:
+Something's off about both solutions: no, I'm not referring to the fact that my solution considers 0 to be the first number in the Fibonacci sequence whereas the solution from **Q for Mortals** doesn't. What's off to me is this: I like to see the act of function invocation as a conversation between the programmer and the program. As such, both solutions aren't well-suited to answering the question: "What are the first `n` numbers of the Fibonacci sequence?" What I'm looking for is this:
 
     fibonacci 5
     -> 0 1 1 2 3
@@ -160,7 +160,7 @@ isFibonacci[10946;(0;1)]
 -> "Yes!"
 ```
 
-Ugh, we shouldn't have to pass in the initial list (0;1) - but that can easily be cleaned up. One more thing that smells: why should we have to keep a list of *all* Fibonacci numbers at a given point in time? All we really need to keep are the last two numbers of the sequence in order to keep the recursive calls going. That's easily done:
+Ugh, we shouldn't have to pass in the initial list (0;1) - but that can easily be cleaned up. One more thing that smells: why should we have to keep a list of **all** Fibonacci numbers at a given point in time? All we really need to keep are the last two numbers of the sequence in order to keep the recursive calls going. That's easily done:
 
 ```
 isFibonacci: {[number;list] 
