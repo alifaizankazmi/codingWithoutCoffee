@@ -254,5 +254,5 @@ To sum up, here's our solution:
 
 It's ugly to make the same check (`1 = count list`) in two places for different purposes, but I'll call it a day at this point.
 
-[list-reversal-first-post]: https://codingwithoutcoffee.netlify.com/posts/listreversal/
+[list-reversal-first-post]: https://codingwithoutcoffee.com/posts/listreversal/
 [tail-recursion]: https://en.wikipedia.org/wiki/Tail_call

@@ -254,4 +254,4 @@ The operator is preceded with the required size of the list and succeeded with a
 
 Seems fairly conclusive: the `getModeWithGroup` function takes roughly 1/6th of the time taken by the `getMode` function and consumes almost half the space.
 
-[fibonacci-post]: https://codingwithoutcoffee.netlify.com/posts/fibonacci/
+[fibonacci-post]: https://codingwithoutcoffee.com/posts/fibonacci/

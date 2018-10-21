@@ -212,5 +212,5 @@ isFibonacci[10946;(0;1)]
 
 Yeah, that works for me.
 
-[list-reversal-second-post]: https://codingwithoutcoffee.netlify.com/posts/listreversal2/
+[list-reversal-second-post]: https://codingwithoutcoffee.com/posts/listreversal2/
 [q-for-mortals-fibonacci-example]: https://code.kx.com/q4m3/1_Q_Shock_and_Awe/#112-example-fibonacci-numbers

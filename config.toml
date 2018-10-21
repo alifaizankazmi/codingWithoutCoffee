@@ -1,4 +1,4 @@
-baseurl = "https://codingwithoutcoffee.netlify.com/"
+baseurl = "https://codingwithoutcoffee.com/"
 # remember trailing / at end of baseurl
 languageCode = "en-us"
 title = "Coding without Coffee"
