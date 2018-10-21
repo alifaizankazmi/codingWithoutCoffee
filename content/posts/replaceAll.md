@@ -17,6 +17,8 @@ type = "post"
 Yes, tables exist in KDB. And we're going to find a way to replace all occurences of one value in a table with another. First, we need to learn how to create a table.
 
 ---
+Thanks to [Alex Hayden][alex-hayden-linkedin] for suggesting this exercise and for going over the Q code that I came up with!
+
 Those of you who are already familiar with `q-sql` and are not interested in finding alternative solutions to this problem: feel free to skip this post.
 
 ---
@@ -403,6 +405,7 @@ Also also good.
 
 Yes and no. There is at least one alternative solution I have in mind for this problem but this post is getting bloated (and I'm reminiscing about Digimon) so I'll save that for the next post. Thanks for sticking around. 
 
+[alex-hayden-linkedin]:https://www.linkedin.com/in/alex-hayden
 [code-kx-column-dictionary]:https://code.kx.com/q4m3/5_Dictionaries/#531-definition-and-terminology
 [transpose]:https://en.wikipedia.org/wiki/Transpose
 [digimon]:https://en.wikipedia.org/wiki/Digimon
