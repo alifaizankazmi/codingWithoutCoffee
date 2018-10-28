@@ -403,7 +403,7 @@ Also also good.
 
 ## Are We About Done Here?
 
-Yes and no. There is at least one alternative solution I have in mind for this problem but this post is getting bloated (and I'm reminiscing about Digimon) so I'll save that for the next post. Thanks for sticking around. 
+Yes and no. There is an alternative solution I have in mind for this problem but this post is getting bloated (and I'm reminiscing about Digimon) so I'll save that for the next post. Thanks for sticking around. 
 
 [alex-hayden-linkedin]:https://www.linkedin.com/in/alex-hayden
 [code-kx-column-dictionary]:https://code.kx.com/q4m3/5_Dictionaries/#531-definition-and-terminology
