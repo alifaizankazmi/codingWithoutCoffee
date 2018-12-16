@@ -181,7 +181,7 @@ q
 -> 5i
 
 updateSeed:{\S 5}
-`\
+-> `\
 ```
 
 Instead, we need to prefix the system command with "system " and drop the backward slash:
@@ -193,7 +193,7 @@ updateSeed[]
 -> 64595546i
 ```
 
-The expression `.z.T` returns the current time in the form `hh:mm:ss.uuu` where `uuu` represents millisesconds. The expression `"i"$`, in turn, converts the current time down to its equivalent milliseconds since midnight. Technically, `"i"$` is conceptually equivalent to Integer.parseInt() in Java - the `i` suffix represents 32-bit signed integer values. The interger value, though, needs to be converted to a string because the `system` function expects a string value that contains both the command ("S") and its argument(s). Finally, note that we're using the `join (,)` operator to concatenate the string `"S "` with the output from `string "i"$.z.T`.
+The expression `.z.T` returns the current time in the form `hh:mm:ss.uuu` where `uuu` represents millisesconds. The expression `"i"$`, in turn, converts the current time down to its equivalent milliseconds since midnight. Technically, `"i"$` is equivalent to Integer.parseInt() in Java - the `i` suffix represents 32-bit signed integer values. The interger value, though, needs to be converted to a string because the `system` function expects a string value that contains both the command ("S") and its argument(s). Finally, note that we're using the `join (,)` operator to concatenate the string `"S "` with the output from `string "i"$.z.T`.
 
 Taken as a whole, the expression sets the current seed to the number of milliseconds since midnight. We now have enough to get our program to pick a random element and return it to the console.
 
@@ -317,7 +317,7 @@ turn:{[element]
 }
 ```
 
-The expression `$element` converts the user's pick - which will be provided as a string - to a symbol. This is needed because we store all elements as symbols in `.game.elements`. 
+The expression ``$element` converts the user's pick - which will be provided as a string - to a symbol. This is needed because we store all elements as symbols in `.game.elements`. 
 
 Hmm, we need an expression to determine whether the user's pick is a valid one: whether it starts with the computer's pick's last letter. It may be cleaner to put such an expression into a separate function. Let's call it `isValidChoice`:
 
