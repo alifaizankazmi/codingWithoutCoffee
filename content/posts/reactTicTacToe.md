@@ -10,6 +10,7 @@ categories = [
 ]
 slug = "ticTacToe"
 type = "post"
+draft = "true"
 +++
 
 ##### Estimated reading time: 10 minutes
