@@ -1,5 +1,5 @@
 +++
-title = "Riffing with React 001: Surely you Jest"
+title = "Riffing with React 001: Surely You Jest"
 description = "react enzyme tic tac toe"
 tags = [ "react", "jest", "enzyme", "tic-tac-toe" ]
 date = "2019-11-02"
