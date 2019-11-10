@@ -1,5 +1,5 @@
 +++
-title = "Riffing with React 004: "
+title = "Riffing with React 004: Enhancements"
 description = "react enzyme tic tac toe"
 tags = [ "react", "jest", "enzyme", "tic-tac-toe" ]
 date = "2019-11-10"
@@ -14,7 +14,7 @@ slug = "ticTacToe4"
 type = "post"
 +++
 
-##### Estimated reading time: 5 minutes
+##### Estimated reading time: 8 minutes
 
 Alright, with all that initial investment in setting up unit tests we can confidently make changes to the code without having to manually test the game for every change.
 
