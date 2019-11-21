@@ -25,7 +25,7 @@ Let's cut to the chase.
 
 ## Win-win-win
 
-Here's the `calculateWinner()` function:
+Here's the `calculateWinner` function:
 
 ```
 function calculateWinner(squares) {
@@ -51,7 +51,7 @@ function calculateWinner(squares) {
 }
 ```
 
-So, the function either returns null or it returns the winner as a string ('X' or 'O'). Based on this string value, we can figure out what squares to highlight - since if, for instance, the winner is 'X' then surely all the squares with a value of 'X' will constitue the winning move. 
+So, the function either returns null or it returns the winner as a string ('X' or 'O'). Based on this string value, we can figure out what squares to highlight - since if, for instance, the winner is 'X' then surely all the squares with a value of 'X' will constitue the winning move. <small>Not always! One bug coming up.</small> 
 
 Which component should take care of the highlighting? It can't be the `Game` component since it doesn't directly render the squares. It could be the `Board` component, then. The `Game` component will pass the winner to the `Board` component and in turn the component will conditionally set the `className` property of a `Square` component in its `renderSquare` function. 
 
@@ -201,7 +201,88 @@ And the winning squares get nicely highlighted too:
 
 <img src="/game-winning-squares-3.PNG" style="width: 37%" />
 
-The final showdown approaches.
+What if the winning move comes after a prior failed winning move?
+
+<img src="/game-winning-squares-bug.PNG" style="width: 37%" />
+
+Screw gun! This is happening because of the `isSquareInWinningMove`'s second `return` statement:
+
+```
+isSquareInWinningMove(i) {
+    let winner = this.props.winner;
+
+    if(!winner) {
+        return false;
+    }
+
+    return this.props.squares[i] === winner;
+}
+```
+
+Instead of simply passing the winner to the `Board` component, we need to pass the winning squares. So we'll have to go back to the `calculateWinner` function:
+
+```
+function calculateWinner(squares) {
+    ...
+    for (let i = 0; i < lines.length; i++) {
+        const [a, b, c] = lines[i];
+        if (squares[a] && 
+            ...
+            return {
+                winner: squares[a],
+                winningSquares: lines[i]
+            };
+    ...
+}
+```
+
+Then update the rest of the code in the `Game` component:
+
+```
+    const history = state.history;
+    const current = state.history[state.stepNumber];
+    const winnerInfo = calculateWinner(current.squares);
+    ...
+    if (winnerInfo && winnerInfo.winner) {
+        status = "Winner: " + winnerInfo.winner;
+    } else if(!current.squares.includes(null)) {
+        status = "Game ended in a draw";
+    } else {
+        status = "Next player: " + (state.xIsNext ? "X" : "O");
+    }
+    ...
+    return (
+    <div className="game">
+        <div className="game-board">
+            <Board
+                squares={current.squares}
+                onClick={i => handleClick(i)}
+                winnerInfo={winnerInfo}
+            />
+        </div>
+    ...
+```
+
+And finally fix the `isSquareInWinningMove` function:
+
+```
+isSquareInWinningMove(i) {
+    let winnerInfo = this.props.winnerInfo;
+
+    if(!winnerInfo) {
+        return false;
+    }
+
+    return this.props.squares[i] === winnerInfo.winner &&
+        winnerInfo.winningSquares.includes(i);
+}
+```
+
+The squares get highlighted correctly now.
+
+<img src="/game-winning-squares-bug-fix.PNG" style="width: 37%" />
+
+And all our unit tests pass too! The final showdown approaches.
 
 ## There are no winners here
 
