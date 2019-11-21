@@ -41,16 +41,48 @@ That's right, there is no code in the `Board` component that calls the `setState
 2. Assign all functions apart from `render` to scoped variables:
 
 ```
+const renderSquare = i => {
+    return (
+        <Square
+            key={i}
+            value={this.props.squares[i]}
+            onClick={() => this.props.onClick(i)}
+            isWinner={this.isSquareInWinningMove(i)}
+        />
+    );
+}
+
+const isSquareInWinningMove = (i, props) => {
+    let winnerInfo = props.winnerInfo;
+
+    if(!winnerInfo) {
+        return false;
+    }
+
+    return props.squares[i] === winnerInfo.winner &&
+        winnerInfo.winningSquares.includes(i);
+}
+```
+
+3. Remove the `this` keyword in all occurences of `this.*`.
+
+4. Remove the `render` function declaration. This is what the final component should look like:
+
+```
+import React from 'react';
+import Square from './Square.js';
+
+export default function Board(props) {
     const renderSquare = i => {
         return (
             <Square
                 key={i}
-                value={this.props.squares[i]}
-                onClick={() => this.props.onClick(i)}
-                isWinner={this.isSquareInWinningMove(i)}
+                value={props.squares[i]}
+                onClick={() => props.onClick(i)}
+                isWinner={isSquareInWinningMove(i)}
             />
-        );
-    }
+        );       
+    };
 
     const isSquareInWinningMove = (i, props) => {
         let winnerInfo = props.winnerInfo;
@@ -62,60 +94,28 @@ That's right, there is no code in the `Board` component that calls the `setState
         return props.squares[i] === winnerInfo.winner &&
             winnerInfo.winningSquares.includes(i);
     }
-```
+    
+    let squareRows = [];
 
-3. Remove the `this` keyword in all occurences of `this.*`.
-
-4. Remove the `render` function declaration. This is what the final component should look like:
-
-```
-    import React from 'react';
-    import Square from './Square.js';
-
-    export default function Board(props) {
-        const renderSquare = i => {
-            return (
-                <Square
-                    key={i}
-                    value={props.squares[i]}
-                    onClick={() => props.onClick(i)}
-                    isWinner={isSquareInWinningMove(i)}
-                />
-            );       
-        };
-
-        const isSquareInWinningMove = (i, props) => {
-            let winnerInfo = props.winnerInfo;
-
-            if(!winnerInfo) {
-                return false;
-            }
-
-            return props.squares[i] === winnerInfo.winner &&
-                winnerInfo.winningSquares.includes(i);
+    for (let col = 0; col < 3; col++) {
+        let squares = [];
+        for (let row = 0; row < 3; row++) {
+            const squareIndex = col * 3 + row;
+            squares.push(
+                renderSquare(squareIndex));
         }
-        
-        let squareRows = [];
-
-        for (let col = 0; col < 3; col++) {
-            let squares = [];
-            for (let row = 0; row < 3; row++) {
-                const squareIndex = col * 3 + row;
-                squares.push(
-                    renderSquare(squareIndex));
-            }
-            squareRows.push(
-                <div className="board-row" key={col}>
-                    {squares}
-                </div>);
-        }
-
-        return (
-            <div>
-                {squareRows}
-            </div>
-        );
+        squareRows.push(
+            <div className="board-row" key={col}>
+                {squares}
+            </div>);
     }
+
+    return (
+        <div>
+            {squareRows}
+        </div>
+    );
+}
 ```
 
 Looks good, right? Nope, it doesn't. We're defining the `renderSquare` and `isSquareInWinningMove` functions every time the `Board` component is rendered. We should move the function definitions outside the `Board` component:
