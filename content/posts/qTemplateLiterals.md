@@ -17,7 +17,7 @@ type = "post"
 
 ##### Estimated reading time: 10 minutes
 
-ES6 introduced the concept of _template strings_ or _template literals_ to Javascript. This made it easy to embed Javascript expressions within a string and to have the expressions evaluated at runtime. To take a trivial example, instead of having Javascript code like the following:
+ES6 introduced the concept of __template strings__ or __template literals__ to Javascript. This made it easy to embed Javascript expressions within a string and to have the expressions evaluated at runtime. To take a trivial example, instead of having Javascript code like the following:
 
 ```
 const name = "Aang";
